@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.nipa0711.photosns">
 
+    <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18"></uses-permission>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -29,6 +33,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,6 +48,16 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAzYvffky2P6-rEh_VayE0K8DLYFIiwOGo" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="net.nipa0711.photosns.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
 
 </manifest>

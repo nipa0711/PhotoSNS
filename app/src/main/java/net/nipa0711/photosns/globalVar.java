@@ -32,7 +32,6 @@ import java.util.Locale;
 public class globalVar extends Application {
     static final String url = "http://localhost:80"; // HTTP 서버 url 예시
     static Bitmap thumbnailBitmap;
-    static Bitmap originalBitmap;
     static File file = Environment.getExternalStorageDirectory();
     static String path = file.getAbsolutePath();
     static String folder = "/photoSNS/";
