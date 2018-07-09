@@ -178,7 +178,7 @@ public class MainActivity extends Activity {
 
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageCaptureUri);
                     String stringPhoto = val.BitMapToString(bitmap);
-                    ExifInterface exif = new ExifInterface(globalVar.photoPath + imgName);
+                    ExifInterface exif = new ExifInterface(globalVar.photoPath); //imgName
                     String metadata = val.ShowExif(exif);
 
                     int viewDefault = currentMyPhonePX * 100; // 100dp

@@ -2,6 +2,7 @@ package net.nipa0711.photosns;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -17,6 +18,7 @@ import java.util.List;
 
 /**
  * Created by Hyunmin on 2015-03-30.
+ * Start refactoring 2018-07-06.
  */
 public class ServerPostComm extends Thread {
     private int command;
@@ -34,6 +36,7 @@ public class ServerPostComm extends Thread {
 
 
     public void run() {
+        Log.d("=============here?","is this execute?");
         // 메시지 객체 생성
         Message message = handle.obtainMessage();
 
@@ -42,7 +45,7 @@ public class ServerPostComm extends Thread {
             HttpClient httpclient = new DefaultHttpClient();
 
             // HttpPost 객체 생성 및 파라메터 설정
-            String addMaybe = "/hostserver/professor";
+            String addMaybe = "/hostserver/photoSNS";
 
             HttpPost httppost = new HttpPost(url + addMaybe + "?command=" + command);
             List<NameValuePair> paramList = new ArrayList<NameValuePair>();

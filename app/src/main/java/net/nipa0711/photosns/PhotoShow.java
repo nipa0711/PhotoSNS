@@ -31,14 +31,14 @@ public class PhotoShow extends Activity {
 
         final globalVar val = (globalVar) getApplicationContext();
 
-        uploader = (TextView) findViewById(R.id.uploader);
-        date = (TextView) findViewById(R.id.date);
-        quote = (TextView) findViewById(R.id.quote);
-        address = (TextView) findViewById(R.id.address);
-        val.imageViewShow = (ImageView) findViewById(R.id.imageViewShow);
-        googleMap = (Button) findViewById(R.id.googleMap);
-        deleteItem = (Button) findViewById(R.id.deleteItem);
-        addFavorite = (Button) findViewById(R.id.addFavorite);
+        uploader = findViewById(R.id.uploader);
+        date = findViewById(R.id.date);
+        quote = findViewById(R.id.quote);
+        address = findViewById(R.id.address);
+        val.imageViewShow = findViewById(R.id.imageViewShow);
+        googleMap = findViewById(R.id.googleMap);
+        deleteItem = findViewById(R.id.deleteItem);
+        addFavorite = findViewById(R.id.addFavorite);
 
         Intent intent = getIntent();
         uploader.setText(intent.getStringExtra("Uploader"));
@@ -46,7 +46,7 @@ public class PhotoShow extends Activity {
         date.setText(intent.getStringExtra("Date"));
 
         if (val.select == 0) {
-            ServerPostComm postclient = new ServerPostComm(val.url, 6, val.id, val.hosthandle);
+            ServerPostComm postclient = new ServerPostComm(globalVar.url, 6, val.id, val.hosthandle);
             postclient.start();
         } else {
             deleteItem.setEnabled(false);
@@ -89,7 +89,7 @@ public class PhotoShow extends Activity {
         deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServerPostComm postclient = new ServerPostComm(val.url, 4, val.id, val.hosthandle);
+                ServerPostComm postclient = new ServerPostComm(globalVar.url, 4, val.id, val.hosthandle);
                 postclient.start();
             }
         });
@@ -102,7 +102,7 @@ public class PhotoShow extends Activity {
             public void onClick(View v) {
                 if (val.select == 0) {
                     ListData mData = val.mAdapter.mListData.get(val.listPosition);
-                    String thumbnail = val.BitMapToString(val.thumbnailBitmap);
+                    String thumbnail = val.BitMapToString(globalVar.thumbnailBitmap);
                     mDbOpenHelper.open();
                     Cursor mCursor = mDbOpenHelper.chkID(val.id);
                     if (mCursor.getCount() > 0) {

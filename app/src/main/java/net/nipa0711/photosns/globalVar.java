@@ -30,7 +30,7 @@ import java.util.Locale;
  * Start refactoring 2018-07-06.
  */
 public class globalVar extends Application {
-    static final String url = "http://localhost:80"; // HTTP 서버 url 예시
+    static final String url = "http://192.168.14.30:1234"; // HTTP 서버 url 예시
     static Bitmap thumbnailBitmap;
     static File file = Environment.getExternalStorageDirectory();
     static String path = file.getAbsolutePath();

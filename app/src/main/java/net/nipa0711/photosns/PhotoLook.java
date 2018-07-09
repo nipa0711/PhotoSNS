@@ -28,13 +28,14 @@ public class PhotoLook extends Activity {
         photoLookActivity = PhotoLook.this;
         final globalVar val = (globalVar) getApplicationContext();
 
-        val.mListView = (ListView) findViewById(R.id.mList);
+        val.mListView = findViewById(R.id.mList);
         tempMeta = new String[20];
 
         // Post HTTP 호출을 담당하는 스레드 실행 (핸들러 객체 전달 필수!)
         if (val.select == 0) {
-            ServerPostComm postclient = new ServerPostComm(val.url, 2, "", val.hosthandle);
+            ServerPostComm postclient = new ServerPostComm(globalVar.url, 2, "", val.hosthandle);
             postclient.start();
+            //postclient.run();
         } else {
             final DbOpenHelper mDbOpenHelper = new DbOpenHelper(getApplicationContext());
             mDbOpenHelper.open();
@@ -78,7 +79,7 @@ public class PhotoLook extends Activity {
                 Intent intent = new Intent(PhotoLook.this, PhotoShow.class);
 
                 if (val.select == 0) {
-                    val.thumbnailBitmap = val.drawableToBitmap(mData.mIcon);
+                    globalVar.thumbnailBitmap = globalVar.drawableToBitmap(mData.mIcon);
                     tempMeta = val.getMetadata(mData.metadata);
                     val.id = mData.id;
                     val.listPosition = position;
