@@ -2,6 +2,7 @@ package net.nipa0711.photosns;
 
 /**
  * Created by Hyunmin on 2015-06-01.
+ * Start refactoring 2018-07-06.
  */
 
 import android.graphics.drawable.Drawable;

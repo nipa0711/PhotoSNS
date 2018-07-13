@@ -35,7 +35,6 @@ public class PhotoLook extends Activity {
         if (val.select == 0) {
             ServerPostComm postclient = new ServerPostComm(globalVar.url, 2, "", val.hosthandle);
             postclient.start();
-            //postclient.run();
         } else {
             final DbOpenHelper mDbOpenHelper = new DbOpenHelper(getApplicationContext());
             mDbOpenHelper.open();

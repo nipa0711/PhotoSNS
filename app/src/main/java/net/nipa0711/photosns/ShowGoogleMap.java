@@ -20,7 +20,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class ShowGoogleMap extends AppCompatActivity
         implements OnMapReadyCallback {
-    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,24 +30,13 @@ public class ShowGoogleMap extends AppCompatActivity
         MapFragment mapFragment = (MapFragment)fragmentManager
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        //final globalVar val = (globalVar) getApplicationContext();
-
-        //map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-
-
-        /*LatLng photoTakenLocation = new LatLng(val.Latitude, val.Longitude);
-        Marker here = map.addMarker(new MarkerOptions().position(photoTakenLocation).title("here"));
-
-        CameraPosition cp = new CameraPosition.Builder().target((photoTakenLocation)).zoom(15).build();
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cp));*/
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         final globalVar val = (globalVar) getApplicationContext();
         LatLng photoTakenLocation = new LatLng(val.Latitude, val.Longitude);
-        googleMap.addMarker(new MarkerOptions().position(photoTakenLocation).title("here")); //Marker here =
+        googleMap.addMarker(new MarkerOptions().position(photoTakenLocation).title("here"));
 
         CameraPosition cp = new CameraPosition.Builder().target((photoTakenLocation)).zoom(15).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cp));

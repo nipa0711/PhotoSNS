@@ -44,7 +44,7 @@ public class globalVar extends Application {
     String metadata[];
     TextView tv;
     int listPosition;
-    File photo;
+    //File photo;
     ImageView imageViewShow;
     int select = 0;
 
@@ -62,7 +62,7 @@ public class globalVar extends Application {
 
     public String BitMapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] b = baos.toByteArray();
 
         String temp = Base64.encodeToString(b, Base64.DEFAULT);
@@ -96,7 +96,7 @@ public class globalVar extends Application {
         myAttribute += getTagString(ExifInterface.TAG_MODEL, exif);
         myAttribute += getTagString(ExifInterface.TAG_ORIENTATION, exif);
         myAttribute += getTagString(ExifInterface.TAG_WHITE_BALANCE, exif);
-        Log.d("TAG", "===================myAttribute : " + myAttribute);
+        //Log.d("TAG", "===================myAttribute : " + myAttribute);
         return myAttribute;
     }
 
@@ -169,7 +169,7 @@ public class globalVar extends Application {
             if (msg.what == 0) {
                 if (msg.arg1 == 0) {
                     Toast.makeText(getApplicationContext(), "전송되었습니다.", Toast.LENGTH_SHORT).show();
-                    photo.delete();
+                    //photo.delete();
                 }
                 // command가 2인 경우
                 else if (msg.arg1 == 2) {

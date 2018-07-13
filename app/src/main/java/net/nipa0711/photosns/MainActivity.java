@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.opengl.Matrix;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -171,36 +172,17 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 try {
                     Toast.makeText(getApplicationContext(), "잠시만 기다려주십시오", Toast.LENGTH_SHORT).show();
-                    DisplayMetrics outMetrics = new DisplayMetrics();
-                    getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
-
-                    int currentMyPhonePX = outMetrics.densityDpi; // 1dp에 해당하는 픽셀
 
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageCaptureUri);
                     String stringPhoto = val.BitMapToString(bitmap);
                     ExifInterface exif = new ExifInterface(globalVar.photoPath); //imgName
                     String metadata = val.ShowExif(exif);
 
-                    int viewDefault = currentMyPhonePX * 100; // 100dp
-                    float width = bitmap.getWidth();
-                    float height = bitmap.getHeight();
-
-                    if (height > viewDefault) // 높이가 기준점보다 크다면
-                    {
-                        float percent = height / 100;
-                        float scale = viewDefault / percent;
-                        width *= (scale / 100);
-                        height *= (scale / 100);
-                    }
-
-                    Bitmap thumbnail = Bitmap.createScaledBitmap(bitmap, (int) width, (int) height, true);
-                    String smallPhoto = val.BitMapToString(thumbnail);
-
-                    String values = setting.getString("uploader", "") + "%" + quote + "%" + smallPhoto + "%" + metadata + "%" + stringPhoto;
+                    String values = setting.getString("uploader", "") + "%" + quote + "%" + metadata + "%" + stringPhoto; // + "%" + smallPhoto
 
                     // Post HTTP 호출을 담당하는 스레드 실행 (핸들러 객체 전달 필수!)
-                    ServerPostComm postclient = new ServerPostComm(globalVar.url, 0, values, val.hosthandle);
-                    postclient.start();
+                    ServerPostComm PostClient = new ServerPostComm(globalVar.url, 0, values, val.hosthandle);
+                    PostClient.start();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -222,7 +204,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        final globalVar val = (globalVar) getApplicationContext();
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {

@@ -36,7 +36,6 @@ public class ServerPostComm extends Thread {
 
 
     public void run() {
-        Log.d("=============here?","is this execute?");
         // 메시지 객체 생성
         Message message = handle.obtainMessage();
 
