@@ -44,7 +44,6 @@ public class globalVar extends Application {
     String metadata[];
     TextView tv;
     int listPosition;
-    //File photo;
     ImageView imageViewShow;
     int select = 0;
 
@@ -178,11 +177,17 @@ public class globalVar extends Application {
 
                     String countMsg[] = ((String) msg.obj).split("%|\\#");
 
-                    for (int i = 0; i < countMsg.length; i++) {
-                        if (i == 0 || i % 6 == 0) {
-                            Bitmap thumbnail = stringToBitmap(countMsg[i + 3]);
-                            Drawable smallPhoto = new BitmapDrawable(getResources(), thumbnail);
-                            mAdapter.addItem(countMsg[i], smallPhoto, countMsg[i + 1], countMsg[i + 4], countMsg[i + 2], countMsg[i + 5]); // smallPhoto, quote,UploadDate,uploader,metadata
+                    if(countMsg[0].isEmpty()){
+                        Toast.makeText(getApplicationContext(), "등록된 것이 없습니다.", Toast.LENGTH_SHORT).show();
+                        PhotoLook look = (PhotoLook)PhotoLook.photoLookActivity;
+                        look.finish();
+                    }else{
+                        for (int i = 0; i < countMsg.length; i++) {
+                            if (i == 0 || i % 6 == 0) {
+                                Bitmap thumbnail = stringToBitmap(countMsg[i + 3]);
+                                Drawable smallPhoto = new BitmapDrawable(getResources(), thumbnail);
+                                mAdapter.addItem(countMsg[i], smallPhoto, countMsg[i + 1], countMsg[i + 4], countMsg[i + 2], countMsg[i + 5]); // smallPhoto, quote,UploadDate,uploader,metadata
+                            }
                         }
                     }
                 } else if (msg.arg1 == 4) {
@@ -195,7 +200,6 @@ public class globalVar extends Application {
                 } else if (msg.arg1 == 6) {
                     originalPhoto = (String) msg.obj;
                     Bitmap bitmap = stringToBitmap(originalPhoto);
-                    //originalBitmap = bitmap;
                     imageViewShow.setImageBitmap(bitmap);
                 }
 
@@ -212,8 +216,6 @@ public class globalVar extends Application {
                     PhotoShow pl = (PhotoShow) PhotoShow.photoShowActivity;
                     pl.finish();
                 }
-
-
             }
         }
     };

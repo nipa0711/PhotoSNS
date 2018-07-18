@@ -178,7 +178,7 @@ public class MainActivity extends Activity {
                     ExifInterface exif = new ExifInterface(globalVar.photoPath); //imgName
                     String metadata = val.ShowExif(exif);
 
-                    String values = setting.getString("uploader", "") + "%" + quote + "%" + metadata + "%" + stringPhoto; // + "%" + smallPhoto
+                    String values = setting.getString("uploader", "") + "%" + quote + "%" + metadata + "%" + stringPhoto;
 
                     // Post HTTP 호출을 담당하는 스레드 실행 (핸들러 객체 전달 필수!)
                     ServerPostComm PostClient = new ServerPostComm(globalVar.url, 0, values, val.hosthandle);

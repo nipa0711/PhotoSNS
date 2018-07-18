@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 /**
  * Created by Hyunmin on 2015-06-01.
@@ -41,9 +40,7 @@ public class PhotoLook extends Activity {
 
             val.mAdapter = new ListViewAdapter(getApplicationContext());
             val.mListView.setAdapter(val.mAdapter);
-
             Cursor mCursor = mDbOpenHelper.getAlmost();
-
             if (mCursor.getCount() < 1) {
                 finish();
             }
