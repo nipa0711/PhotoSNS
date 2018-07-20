@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ public class PhotoShow extends Activity {
         photoShowActivity = PhotoShow.this;
 
         final globalVar val = (globalVar) getApplicationContext();
+        final PhotoService ps = new PhotoService();
 
         uploader = findViewById(R.id.uploader);
         date = findViewById(R.id.date);
@@ -56,24 +58,24 @@ public class PhotoShow extends Activity {
             Cursor mCursor = mDbOpenHelper.getPhoto(val.id);
             mCursor.moveToLast();
             String photo = mCursor.getString(mCursor.getColumnIndex("photo"));
-            Bitmap bitmap = val.stringToBitmap(photo);
+            Bitmap bitmap = ps.stringToBitmap(photo);
             val.imageViewShow.setImageBitmap(bitmap);
         }
 
-        if (!val.metadata[2].equals("null") && !val.metadata[4].equals("null")) {
-            if (val.metadata[3].equals("N")) {
-                val.Latitude = val.convertToDegree(val.metadata[2]);
+        if (!ps.metadata[2].equals("null") && !ps.metadata[4].equals("null")) {
+            if (ps.metadata[3].equals("N")) {
+                ps.Latitude = ps.convertToDegree(ps.metadata[2]);
             } else {
-                val.Latitude = 0 - val.convertToDegree(val.metadata[2]);
+                ps.Latitude = 0 - ps.convertToDegree(ps.metadata[2]);
             }
 
-            if (val.metadata[5].equals("E")) {
-                val.Longitude = val.convertToDegree(val.metadata[4]);
+            if (ps.metadata[5].equals("E")) {
+                ps.Longitude = ps.convertToDegree(ps.metadata[4]);
             } else {
-                val.Longitude = 0 - val.convertToDegree(val.metadata[4]);
+                ps.Longitude = 0 - ps.convertToDegree(ps.metadata[4]);
             }
 
-            address.setText(val.findAddress(val.Latitude, val.Longitude));
+            address.setText(ps.findAddress(ps.Latitude, ps.Longitude));
         } else {
             address.setText("GPS가 기록되어 있지 않습니다.");
         }
@@ -102,7 +104,7 @@ public class PhotoShow extends Activity {
             public void onClick(View v) {
                 if (val.select == 0) {
                     ListData mData = val.mAdapter.mListData.get(val.listPosition);
-                    String thumbnail = val.BitMapToString(globalVar.thumbnailBitmap);
+                    String thumbnail = ps.BitMapToString(globalVar.thumbnailBitmap);
                     mDbOpenHelper.open();
                     Cursor mCursor = mDbOpenHelper.chkID(val.id);
                     if (mCursor.getCount() > 0) {

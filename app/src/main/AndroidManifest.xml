@@ -52,9 +52,6 @@
         <activity android:name=".PhotoShow" />
         <activity android:name=".ShowGoogleMap" />
         <activity android:name=".SignupActivity" />
-        <!--activity android:name=".LoginActivity" android:theme="@style/AppTheme" /-->
-
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />

@@ -33,8 +33,8 @@ public class ShowGoogleMap extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        final globalVar val = (globalVar) getApplicationContext();
-        LatLng photoTakenLocation = new LatLng(val.Latitude, val.Longitude);
+        PhotoService ps = new PhotoService();
+        LatLng photoTakenLocation = new LatLng(ps.Latitude, ps.Longitude);
         googleMap.addMarker(new MarkerOptions().position(photoTakenLocation).title("here"));
 
         CameraPosition cp = new CameraPosition.Builder().target((photoTakenLocation)).zoom(15).build();

@@ -26,6 +26,7 @@ public class PhotoLook extends Activity {
 
         photoLookActivity = PhotoLook.this;
         final globalVar val = (globalVar) getApplicationContext();
+        final PhotoService ps = new PhotoService();
 
         val.mListView = findViewById(R.id.mList);
         tempMeta = new String[20];
@@ -55,10 +56,10 @@ public class PhotoLook extends Activity {
                     uploadDate = mCursor.getString(mCursor.getColumnIndex("uploadDate"));
                     metadata = mCursor.getString(mCursor.getColumnIndex("metadata"));
 
-                    tempMeta = val.getMetadata(metadata);
-                    System.arraycopy(tempMeta, 0, val.metadata, 0, tempMeta.length);
+                    tempMeta = ps.getMetadata(metadata);
+                    System.arraycopy(tempMeta, 0, ps.metadata, 0, tempMeta.length);
 
-                    Bitmap thumbnail = val.stringToBitmap(thumbImg);
+                    Bitmap thumbnail = ps.stringToBitmap(thumbImg);
                     Drawable smallPhoto = new BitmapDrawable(getResources(), thumbnail);
                     val.mAdapter.addItem(_id, smallPhoto, quote, uploadDate, uploader, tempMeta[0]);
                     val.id = _id;
@@ -75,8 +76,8 @@ public class PhotoLook extends Activity {
                 Intent intent = new Intent(PhotoLook.this, PhotoShow.class);
 
                 if (val.select == 0) {
-                    globalVar.thumbnailBitmap = globalVar.drawableToBitmap(mData.mIcon);
-                    tempMeta = val.getMetadata(mData.metadata);
+                    globalVar.thumbnailBitmap = ps.drawableToBitmap(mData.mIcon);
+                    tempMeta = ps.getMetadata(mData.metadata);
                     val.id = mData.id;
                     val.listPosition = position;
 

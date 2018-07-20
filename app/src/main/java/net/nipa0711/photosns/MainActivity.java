@@ -174,12 +174,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 try {
+                    PhotoService ps = new PhotoService();
                     Toast.makeText(getApplicationContext(), "잠시만 기다려주십시오", Toast.LENGTH_SHORT).show();
 
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageCaptureUri);
-                    String stringPhoto = val.BitMapToString(bitmap);
+                    String stringPhoto = ps.BitMapToString(bitmap);
                     ExifInterface exif = new ExifInterface(globalVar.photoPath); //imgName
-                    String metadata = val.ShowExif(exif);
+                    String metadata = ps.ShowExif(exif);
 
                     String values = setting.getString("uploader", "") + "%" + quote + "%" + metadata + "%" + stringPhoto;
 
