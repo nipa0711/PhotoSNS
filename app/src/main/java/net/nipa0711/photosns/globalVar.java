@@ -46,6 +46,9 @@ public class globalVar extends Application {
     int listPosition;
     ImageView imageViewShow;
     int select = 0;
+    static String email;
+    static String password;
+    static boolean isLoginSuccess = false;
 
 
     public Bitmap stringToBitmap(String in) {
@@ -177,11 +180,11 @@ public class globalVar extends Application {
 
                     String countMsg[] = ((String) msg.obj).split("%|\\#");
 
-                    if(countMsg[0].isEmpty()){
+                    if (countMsg[0].isEmpty()) {
                         Toast.makeText(getApplicationContext(), "등록된 것이 없습니다.", Toast.LENGTH_SHORT).show();
-                        PhotoLook look = (PhotoLook)PhotoLook.photoLookActivity;
+                        PhotoLook look = (PhotoLook) PhotoLook.photoLookActivity;
                         look.finish();
-                    }else{
+                    } else {
                         for (int i = 0; i < countMsg.length; i++) {
                             if (i == 0 || i % 6 == 0) {
                                 Bitmap thumbnail = stringToBitmap(countMsg[i + 3]);
@@ -201,6 +204,23 @@ public class globalVar extends Application {
                     originalPhoto = (String) msg.obj;
                     Bitmap bitmap = stringToBitmap(originalPhoto);
                     imageViewShow.setImageBitmap(bitmap);
+                } else if (msg.arg1 == 9) {
+                    String countMsg[] = ((String) msg.obj).split("%|\\#");
+                    if (countMsg[0].equals("true")) {
+                        isLoginSuccess = true;
+                    }
+                } else if (msg.arg1 == 10) {
+                    String countMsg[] = ((String) msg.obj).split("%|\\#");
+                    if (countMsg[0].equals("false")) {
+                        final globalVar val = (globalVar) getApplicationContext();
+                        ServerPostComm PostClient = new ServerPostComm(globalVar.url, 9, email + "%" + password + "#", val.hosthandle);
+                        PostClient.start();
+                    }
+                }else if (msg.arg1 == 11) {
+                    String countMsg[] = ((String) msg.obj).split("%|\\#");
+                    if (countMsg[0].equals("true")) {
+                        isLoginSuccess = true;
+                    }
                 }
 
                 // 호출 실패

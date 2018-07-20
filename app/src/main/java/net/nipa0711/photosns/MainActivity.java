@@ -83,7 +83,10 @@ public class MainActivity extends Activity {
         setting = getSharedPreferences("setting", 0); // 0은 읽기 쓰기 가능. setting.xml이 생성됨
         editor = setting.edit();
 
-        if (setting.contains("uploader") == false) {
+        uploader = val.email;
+        editor.putString("uploader", uploader); // Preference
+
+       /* if (setting.contains("uploader") == false) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("사용자 이름을 입력해주세요");
             final EditText input = new EditText(this);
@@ -91,12 +94,12 @@ public class MainActivity extends Activity {
             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     uploader = input.getText().toString();
-                    editor.putString("uploader", uploader); // Preference
                     editor.commit();
                 }
             });
             alert.show();
-        }
+        }         editor.putString("uploader", uploader); // Preference*/
+
 
         send.setEnabled(false);
 
