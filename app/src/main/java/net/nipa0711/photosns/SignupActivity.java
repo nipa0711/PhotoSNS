@@ -16,11 +16,12 @@ import butterknife.BindView;
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
-    // @BindView(R.id.input_name) EditText _nameText;
     @BindView(R.id.input_email)
     EditText _emailText;
     @BindView(R.id.input_password)
     EditText _passwordText;
+    @BindView(R.id.re_password)
+    EditText _passwordChk;
     @BindView(R.id.btn_signup)
     Button _signupButton;
     @BindView(R.id.link_login)
@@ -65,7 +66,6 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.show();
 
         final globalVar val = (globalVar) getApplicationContext();
-        //     String name = _nameText.getText().toString();
         val.email = _emailText.getText().toString();
         val.password = _passwordText.getText().toString();
 
@@ -105,16 +105,9 @@ public class SignupActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        //  String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
-/*
-        if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
-            valid = false;
-        } else {
-            _nameText.setError(null);
-        }*/
+        String password_chk = _passwordChk.getText().toString();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _emailText.setError("enter a valid email address");
@@ -128,6 +121,13 @@ public class SignupActivity extends AppCompatActivity {
             valid = false;
         } else {
             _passwordText.setError(null);
+        }
+
+        if (password_chk.equals(password) != true) {
+            _passwordChk.setError("password is not match");
+            valid = false;
+        } else {
+            _passwordChk.setError(null);
         }
 
         return valid;
