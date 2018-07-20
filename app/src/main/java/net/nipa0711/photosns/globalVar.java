@@ -76,7 +76,7 @@ public class globalVar extends Application {
                             if (i == 0 || i % 6 == 0) {
                                 Bitmap thumbnail = ps.stringToBitmap(countMsg[i + 3]);
                                 Drawable smallPhoto = new BitmapDrawable(getResources(), thumbnail);
-                                mAdapter.addItem(countMsg[i], smallPhoto, countMsg[i + 1], countMsg[i + 4], countMsg[i + 2], countMsg[i + 5]); // smallPhoto, quote,UploadDate,uploader,metadata
+                                mAdapter.addItem(countMsg[i], smallPhoto, countMsg[i + 2], countMsg[i + 4], countMsg[i + 1], countMsg[i + 5]); // id, smallPhoto,quote ,UploadDate,uploader,metadata
                             }
                         }
                     }

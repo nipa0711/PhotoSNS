@@ -33,7 +33,7 @@ public class ShowGoogleMap extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        PhotoService ps = new PhotoService();
+        PhotoService ps = new PhotoService(this);
         LatLng photoTakenLocation = new LatLng(ps.Latitude, ps.Longitude);
         googleMap.addMarker(new MarkerOptions().position(photoTakenLocation).title("here"));
 

@@ -1,6 +1,7 @@
 package net.nipa0711.photosns;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,9 +18,19 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class PhotoService extends Activity{
+public class PhotoService {
+    private Context context;
+
+    public PhotoService(Context context) {
+        this.context = context;
+    }
+
+    public PhotoService() {
+
+    }
+
     static String metadata[];
-    double Latitude = 0, Longitude = 0;
+    static double Latitude = 0, Longitude = 0;
 
     public Bitmap stringToBitmap(String in) {
         byte[] bytes = Base64.decode(in, Base64.DEFAULT);
@@ -53,7 +64,6 @@ public class PhotoService extends Activity{
     }
 
     public String ShowExif(ExifInterface exif) {
-
         String myAttribute;
 
         myAttribute = getTagString(ExifInterface.TAG_DATETIME, exif);
@@ -84,7 +94,7 @@ public class PhotoService extends Activity{
 
     public String findAddress(double lat, double lng) {
         StringBuffer bf = new StringBuffer();
-        Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+        Geocoder geocoder = new Geocoder(context, Locale.KOREA);
         List<Address> address;
         try {
             if (geocoder != null) {
@@ -101,9 +111,7 @@ public class PhotoService extends Activity{
             }
 
         } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "주소취득 실패"
-                    , Toast.LENGTH_LONG).show();
-
+            Toast.makeText(context, "주소취득 실패", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
         return bf.toString();

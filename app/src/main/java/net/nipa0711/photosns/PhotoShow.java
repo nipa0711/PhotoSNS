@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +16,7 @@ import android.widget.Toast;
  */
 public class PhotoShow extends Activity {
     public static Activity photoShowActivity;
-
     TextView uploader, date, quote, address;
-
     Button googleMap, deleteItem, addFavorite;
 
     @Override
@@ -31,7 +27,7 @@ public class PhotoShow extends Activity {
         photoShowActivity = PhotoShow.this;
 
         final globalVar val = (globalVar) getApplicationContext();
-        final PhotoService ps = new PhotoService();
+        final PhotoService ps = new PhotoService(this);
 
         uploader = findViewById(R.id.uploader);
         date = findViewById(R.id.date);
