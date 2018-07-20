@@ -99,7 +99,10 @@ public class LoginActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
-
+                final globalVar val = (globalVar) getApplicationContext();
+                val.isLoginSuccess = false;
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
                 this.finish();
             }
         }
@@ -141,8 +144,8 @@ public class LoginActivity extends AppCompatActivity {
             _emailText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+        if (password.isEmpty() || password.length() < 8 || password.length() > 16) {
+            _passwordText.setError("between 8 and 16 alphanumeric characters");
             valid = false;
         } else {
             _passwordText.setError(null);
